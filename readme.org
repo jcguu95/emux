@@ -26,13 +26,13 @@ Run the provided ~install.sh~ within that directory:
 #+begin_src bash
 chmod +x install.sh ./install.sh
 #+end_src
-This will create a symbolic link named ~emux~ inside your ~$HOME/.scripts~ directory.
+This will create a symbolic link named ~emux~ inside your ~$HOME/.local/bin~ directory.
 
 ** Usage & Tips
 
 - *Launch/Attach*:
   #+begin_src bash
-  PATH=~/.scripts:"$PATH" emux
+  PATH="$HOME"/.local/bin:"$PATH" emux
   #+end_src
 - *Vterm*: By default, it is configured to use ~vterm~ (though you can use ~eat~ if you prefer).
 - *Workflow*:
