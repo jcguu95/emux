@@ -1,31 +1,56 @@
-#+TITLE: Emux: 獨立、快速的 Emacs 終端環境
+#+TITLE: Emux: Tmux-Replacement based on Emacs
 #+AUTHOR: Jin-Cheng Guu
-#+DESCRIPTION: 一個基於 Emacs Client/Server 架構的輕量化終端開發環境
 
-* 簡介
+* Introduction
 
-~emux~ 是一個精心設計的腳本，旨在為你提供一個隔離且極速的 Emacs 終端體驗。
+=emux= is a vanilla Emacs wrapper bundled with a minimal Elisp configuration. It
+is designed to be a lightweight, highly responsive alternative to =tmux=.
 
-與直接執行 ~emacs -nw~ 不同，~emux~ 具備以下優勢：
-- *啟動極快*：利用 Emacs Daemon 模式，第二次啟動為「瞬間」完成。
-- *環境隔離*：使用專屬的 Socket (~emux-server~)，不會與你現有的 Emacs 配置衝突。
-- *配置獨立*：強制讀取腳本所在目錄的配置，適合打包成專屬的迷你開發環境。
-- *底層優勢*：推薦搭配 ~vterm~ 使用，享受 C 語言級別的終端解析速度。
+** Core Philosophy
 
-* Usage
+- *Self-Contained*: It starts Emacs using the script's directory as the
+  ~init-dir~, keeping your environment portable and isolated.
+- *Tmux Replacement*: While it works in GUI mode, it is intended to run
+  primarily in any terminal (~-nw~).
+- *Speed & Efficiency*: The config is inspired by *Doom Emacs*. It uses
+  ~straight.el~ for package management; while the first run or package updates
+  may take some time, subsequent boots typically take *less than 0.2 seconds*.
+- *Persistent Sessions*: It operates by starting an Emacs server at a specific
+  socket. You can run =emux= from multiple terminal tabs to connect to the same
+  session, sharing buffers and state across your entire workspace.
 
-在該目錄下執行我們提供的 ~install.sh~ ：
+It uses vterm by default, but you can use eat as well. Just configure the
+emacs. Some tips: =SPC t t= gets you a vterm; it asks you to name it. =M-x
+rename-buffer= is also handy.
+
+* Installation
+
+Run the provided ~install.sh~ within that directory:
 #+begin_src bash
-chmod +x install.sh
-./install.sh
+chmod +x install.sh ./install.sh
 #+end_src
-這會在你的 ~$HOME/.scripts~ 目錄下建立一個名為 ~emux~ 的符號連結。
+This will create a symbolic link named ~emux~ inside your ~$HOME/.scripts~ directory.
 
-#+begin_src bash
-PATH=~/.scripts:"$PATH" emux
-#+end_src
+* Usage & Tips
 
+- *Launch/Attach*:
+  #+begin_src bash
+  PATH=~/.scripts:"$PATH" emux
+  #+end_src
+- *Vterm*: By default, it is configured to use ~vterm~ (though you can use ~eat~ if you prefer).
+- *Workflow*:
+  - =SPC t t= :: Opens a new ~vterm~ buffer. The script will prompt you to give it a name.
+  - =M-x rename-buffer= :: Highly recommended for keeping your various terminal
+    sessions organized—much more flexible than tmux window names.
+
+* Notes
+
+- *First Run*: The initial launch will take longer as ~straight.el~ clones and
+  builds your packages. Do not interrupt this process.
+- *Killing the Server*: Since =emux= runs as a daemon, closing your terminal
+  window won't kill the session. To shut down the server completely, use =M-x
+  kill-emacs= inside the application.
+  
 * TODOs
 
-1. Fix clipboard integration.
-2. Use =elpaca= instead of =straight.el=.
+1. Use =elpaca= instead of =straight.el=.
