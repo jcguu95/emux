@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
+(menu-bar-mode -1)
+
 (use-package which-key
   :defer nil
   :config
