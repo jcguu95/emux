@@ -51,4 +51,5 @@ This will create a symbolic link named ~emux~ inside your ~$HOME/.scripts~ direc
 ** TODOs
 
 1. Use ~elpaca~ instead of ~straight.el~.
-2. Write why ~vterm~ is better than ~eat~ for our aim.
+2. Make emux verbose: explicit say which emacs socket it is using.
+3. Write why ~vterm~ is better than ~eat~ for our aim.
