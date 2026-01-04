@@ -1,7 +1,11 @@
 ;;; -*- lexical-binding: t; -*-
 
+(unless (locate-library "vterm")
+  ;; Ask elpaca to manage vterm only if the system does not already.
+  ;; This is useful for guix.
+  (use-package vterm :ensure t))
+
 (use-package vterm
-  :ensure t
   :defer t
   :preface
   (defun my/run-named-vterm (name)
@@ -17,7 +21,6 @@ If NAME is taken, append a suffix to ensure uniqueness."
       (switch-to-buffer vterm-buffer)))
   
   :config
-  
   (with-eval-after-load 'init-bindings
     (my-leader
      "t" '(:ignore t :which-key "Terminal")
