@@ -8,6 +8,12 @@
 (use-package vterm
   :defer t
   :preface
+  
+  (with-eval-after-load 'init-bindings
+    (my-leader
+     "t" '(:ignore t :which-key "Terminal")
+     "tt" '(my/run-named-vterm :which-key "New Vterm")))
+  
   (defun my/run-named-vterm (name)
     "Create or switch to a vterm buffer with NAME.
 If NAME is taken, append a suffix to ensure uniqueness."
@@ -21,10 +27,6 @@ If NAME is taken, append a suffix to ensure uniqueness."
       (switch-to-buffer vterm-buffer)))
   
   :config
-  (with-eval-after-load 'init-bindings
-    (my-leader
-     "t" '(:ignore t :which-key "Terminal")
-     "tt" '(my/run-named-vterm :which-key "New Vterm")))
   
 ;;; Vterm with Command Edition (edit-indirect like)
 ;;; TODO We may rewrite this with edit-indirect.el.
