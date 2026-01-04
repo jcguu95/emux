@@ -17,8 +17,7 @@ is designed to be a lightweight, highly responsive alternative to =tmux=.
   session, sharing buffers and state across your entire workspace.
 
 It uses vterm by default, but you can use eat as well. Just configure the
-emacs. Some tips: =SPC t t= gets you a vterm; it asks you to name it. =M-x
-rename-buffer= is also handy.
+emacs. Some tips: =SPC t t= gets you a vterm; it asks you to name it. =M-x rename-buffer= is also handy.
 
 ** Installation
 

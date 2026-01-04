@@ -46,6 +46,7 @@
    ))
 
 (use-package helpful
+  :ensure t
   :defer t)
 
 (provide 'init-bindings)
