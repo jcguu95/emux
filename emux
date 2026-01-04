@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "Running emux.."
+
 # 處理符號連結，取得真正的檔案路徑
 SOURCE="${BASH_SOURCE[0]}"
 # 如果 SOURCE 是一個符號連結，就持續追蹤它到原始檔案為止
@@ -19,7 +21,7 @@ SOCKET_NAME="emux-server"
 # 3. 檢查伺服器是否正在運行
 # 這裡嘗試發送一個簡單的指令，如果失敗表示 server 沒開
 if ! emacsclient --socket-name "$SOCKET_NAME" --eval "t" >/dev/null 2>&1; then
-    echo "正在啟動專屬 Emux 伺服器..."
+    echo "Starting emacs background daemon for Emux..."
     # 手動啟動 daemon，並指定 init-dir
     # 使用 --daemon=名稱，可以直接指定 socket 名稱
     emacs --init-dir="$SCRIPT_DIR" --daemon="$SOCKET_NAME" -nw
@@ -27,6 +29,21 @@ if ! emacsclient --socket-name "$SOCKET_NAME" --eval "t" >/dev/null 2>&1; then
     # 等待一秒確保 socket 檔案已產生
     sleep 0.5
 fi
+
+# --- Debug Information ---
+if ! command -v emacsclient >/dev/null 2>&1; then
+    echo "Error: 'emacsclient' not found in PATH."
+    exit 1
+fi
+echo "================== EMUX DEBUG BEGIN =================="
+echo "Emacs Executable:  $(which emacs)"
+echo "Client Executable: $(which emacsclient)"
+echo "Init Directory:    $SCRIPT_DIR"
+echo "Socket Name:       $SOCKET_NAME"
+SOCKET_FILE_PATH=$(emacsclient --socket-name "$SOCKET_NAME" --eval \
+    "(expand-file-name \"$SOCKET_NAME\" server-socket-dir)" 2>/dev/null | sed 's/"//g')
+echo "Socket Path:       ${SOCKET_FILE_PATH:-"Not found or server not running"}"
+echo "================== EMUX DEBUG  END  =================="
 
 # 4. 連接伺服器
 exec emacsclient --socket-name "$SOCKET_NAME" -nw "$@"

@@ -50,5 +50,4 @@ This will create a symbolic link named ~emux~ inside your ~$HOME/.local/bin~ dir
   
 ** TODOs
 
-1. Make emux verbose: explicit say which emacs socket it is using.
-2. Write why ~vterm~ is better than ~eat~ for our aim.
+1. Write why ~vterm~ is better than ~eat~ for our aim.
