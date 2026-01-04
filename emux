@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+# 處理符號連結，取得真正的檔案路徑
+SOURCE="${BASH_SOURCE[0]}"
+# 如果 SOURCE 是一個符號連結，就持續追蹤它到原始檔案為止
+while [ -L "$SOURCE" ]; do
+  SCRIPT_DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  # 如果 readlink 是相對路徑，則需要相對於連結所在的目錄來解析
+  [[ $SOURCE != /* ]] && SOURCE="$SCRIPT_DIR/$SOURCE"
+done
+
+SCRIPT_DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+
+# 2. 定義專屬的 Socket 名稱
+# 這樣它就不會連到預設的 server 或是其他 Emacs 實例
+SOCKET_NAME="emux-server"
+
+# 3. 檢查伺服器是否正在運行
+# 這裡嘗試發送一個簡單的指令，如果失敗表示 server 沒開
+if ! emacsclient --socket-name "$SOCKET_NAME" --eval "t" >/dev/null 2>&1; then
+    echo "正在啟動專屬 Emux 伺服器..."
+    # 手動啟動 daemon，並指定 init-dir
+    # 使用 --daemon=名稱，可以直接指定 socket 名稱
+    emacs --init-dir="$SCRIPT_DIR" --daemon="$SOCKET_NAME" -nw
+    
+    # 等待一秒確保 socket 檔案已產生
+    sleep 0.5
+fi
+
+# 4. 連接伺服器
+exec emacsclient --socket-name "$SOCKET_NAME" -nw "$@"
+
+exit

@@ -1,0 +1,31 @@
+#+TITLE: Emux: 獨立、快速的 Emacs 終端環境
+#+AUTHOR: Jin-Cheng Guu
+#+DESCRIPTION: 一個基於 Emacs Client/Server 架構的輕量化終端開發環境
+
+* 簡介
+
+~emux~ 是一個精心設計的腳本，旨在為你提供一個隔離且極速的 Emacs 終端體驗。
+
+與直接執行 ~emacs -nw~ 不同，~emux~ 具備以下優勢：
+- *啟動極快*：利用 Emacs Daemon 模式，第二次啟動為「瞬間」完成。
+- *環境隔離*：使用專屬的 Socket (~emux-server~)，不會與你現有的 Emacs 配置衝突。
+- *配置獨立*：強制讀取腳本所在目錄的配置，適合打包成專屬的迷你開發環境。
+- *底層優勢*：推薦搭配 ~vterm~ 使用，享受 C 語言級別的終端解析速度。
+
+* Usage
+
+在該目錄下執行我們提供的 ~install.sh~ ：
+#+begin_src bash
+chmod +x install.sh
+./install.sh
+#+end_src
+這會在你的 ~$HOME/.scripts~ 目錄下建立一個名為 ~emux~ 的符號連結。
+
+#+begin_src bash
+PATH=~/.scripts:"$PATH" emux
+#+end_src
+
+* TODOs
+
+1. Fix clipboard integration.
+2. Use =elpaca= instead of =straight.el=.
