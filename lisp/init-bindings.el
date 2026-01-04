@@ -3,9 +3,17 @@
 (use-package general
   :defer nil
   :config
+  
   (general-create-definer my-leader
     :states '(normal visual emacs)
     :prefix "SPC")
+  
+  (general-create-definer my-local-leader
+    :states '(normal visual emacs)
+    :prefix "SPC m"                     ; Doom style
+    :non-normal-prefix "M-SPC m"
+    :keymaps 'override)
+  
   (my-leader
    ":" '(execute-extended-command :which-key "M-x") ; FIXME :which-key didn't seem to work here
    "x" '(my/toggle-scratch-buffer :which-key "toggle scratch buffer")
@@ -16,12 +24,7 @@
    "bb" '(switch-to-buffer :which-key "Switch")
    "bk" '(kill-current-buffer :which-key "Kill")
    "bi" '(ibuffer :which-key "ibuffer")
-   
-   ;; Terminal
-   "t" '(:ignore t :which-key "Terminal")
-   "tt" '(eat :which-key "New Eat")
-   "tT" '(eat-terminal-toggle :which-key "Toggle Eat")
-   
+
    ;; Window
    "w" '(:ignore t :which-key "Window")
    "wv" '(split-window-right :which-key "Vertical split")
