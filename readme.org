@@ -44,10 +44,18 @@ This will create a symbolic link named ~emux~ inside your ~$HOME/.local/bin~ dir
 
 - *First Run*: The initial launch will take longer as ~elpaca~ clones and builds
   your packages. Do not interrupt this process.
+  
 - *Killing the Server*: Since =emux= runs as a daemon, closing your terminal
   window won't kill the session. To shut down the server completely, use ~M-x
   kill-emacs~ inside the application.
-  
-** TODOs
-
-1. Write why ~vterm~ is better than ~eat~ for our aim.
+- *Why vterm is better than eat for Emux*
+  - Performance: Since vterm is built on a compiled C library, it processes
+    massive data streams significantly faster than eat without freezing the
+    Emacs UI.
+  - Fidelity: It provides near-perfect terminal emulation for complex TUI
+    applications like htop or vim, which occasionally suffer from rendering
+    glitches in pure-Elisp alternatives.
+  - Persistence: The C-based backend offers superior stability for
+    long-running server sessions, ensuring your terminal buffers remain
+    responsive even after weeks of uptime.
+    
