@@ -9,22 +9,21 @@
     (my-leader
      "t" '(:ignore t :which-key "Terminal")
      "tt" '(my/run-named-vterm :which-key "New Vterm")))
-  
-  :config
-  
-;;; 
 
   (defun my/run-named-vterm (name)
     "Create or switch to a vterm buffer with NAME.
 If NAME is taken, append a suffix to ensure uniqueness."
     (interactive "sVterm Name: ")
+    (require 'vterm)
     (let* ((unique-name (format "vterm: %s" (generate-new-buffer-name name)))
            (vterm-buffer (get-buffer-create unique-name)))
       (with-current-buffer vterm-buffer
         (unless (derived-mode-p 'vterm-mode)
           (vterm-mode)))
       (switch-to-buffer vterm-buffer)))
-
+  
+  :config
+  
 ;;; Vterm with Command Edition (edit-indirect like)
 ;;; TODO We may rewrite this with edit-indirect.el.
 
