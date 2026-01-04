@@ -1,9 +1,6 @@
-#+TITLE: Emux: Tmux-Replacement based on Emacs
-#+AUTHOR: Jin-Cheng Guu
+* Emux
 
-* Introduction
-
-=emux= is a vanilla Emacs wrapper bundled with a minimal Elisp configuration. It
+=Emux= is a vanilla Emacs wrapper bundled with a minimal Elisp configuration. It
 is designed to be a lightweight, highly responsive alternative to =tmux=.
 
 ** Core Philosophy
@@ -23,7 +20,7 @@ It uses vterm by default, but you can use eat as well. Just configure the
 emacs. Some tips: =SPC t t= gets you a vterm; it asks you to name it. =M-x
 rename-buffer= is also handy.
 
-* Installation
+** Installation
 
 Run the provided ~install.sh~ within that directory:
 #+begin_src bash
@@ -31,7 +28,7 @@ chmod +x install.sh ./install.sh
 #+end_src
 This will create a symbolic link named ~emux~ inside your ~$HOME/.scripts~ directory.
 
-* Usage & Tips
+** Usage & Tips
 
 - *Launch/Attach*:
   #+begin_src bash
@@ -43,14 +40,14 @@ This will create a symbolic link named ~emux~ inside your ~$HOME/.scripts~ direc
   - =M-x rename-buffer= :: Highly recommended for keeping your various terminal
     sessions organized—much more flexible than tmux window names.
 
-* Notes
+** Notes
 
 - *First Run*: The initial launch will take longer as ~straight.el~ clones and
   builds your packages. Do not interrupt this process.
 - *Killing the Server*: Since =emux= runs as a daemon, closing your terminal
-  window won't kill the session. To shut down the server completely, use =M-x
-  kill-emacs= inside the application.
+  window won't kill the session. To shut down the server completely, use ~M-x
+  kill-emacs~ inside the application.
   
-* TODOs
+** TODOs
 
 1. Use =elpaca= instead of =straight.el=.
