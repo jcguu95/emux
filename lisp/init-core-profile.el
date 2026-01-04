@@ -9,9 +9,8 @@
 (require 'init-bindings)
 (require 'init-window)
 (require 'init-completion)
+(require 'init-clipboard)
 
-;; TODO --- System Clipboard ---
-;; Integrate `emacs -nw` and system clipboard (#'evil-yank and
-;; #'evil-paste-after). See how doomemacs did this.
+;;; 
 
 (provide 'init-core-profile)
