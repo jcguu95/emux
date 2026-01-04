@@ -1,6 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
 (use-package evil
+  :ensure t
   :init
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil) ; 不自動綁定鍵，交由 evil-collection 和 general.el 處理
@@ -10,6 +11,7 @@
   (setq evil-esc-delay 0)) ; 終端 ESC 不延遲
 
 (use-package evil-collection
+  :ensure t
   :after evil
   :init
   (evil-collection-init))

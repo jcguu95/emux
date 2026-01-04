@@ -10,7 +10,7 @@ is designed to be a lightweight, highly responsive alternative to =tmux=.
 - *Tmux Replacement*: While it works in GUI mode, it is intended to run
   primarily in any terminal (~-nw~).
 - *Speed & Efficiency*: The config is inspired by *Doom Emacs*. It uses
-  ~straight.el~ for package management; while the first run or package updates
+  ~elpaca.el~ for package management; while the first run or package updates
   may take some time, subsequent boots typically take *less than 0.2 seconds*.
 - *Persistent Sessions*: It operates by starting an Emacs server at a specific
   socket. You can run =emux= from multiple terminal tabs to connect to the same
@@ -42,14 +42,13 @@ This will create a symbolic link named ~emux~ inside your ~$HOME/.local/bin~ dir
 
 ** Notes
 
-- *First Run*: The initial launch will take longer as ~straight.el~ clones and
-  builds your packages. Do not interrupt this process.
+- *First Run*: The initial launch will take longer as ~elpaca~ clones and builds
+  your packages. Do not interrupt this process.
 - *Killing the Server*: Since =emux= runs as a daemon, closing your terminal
   window won't kill the session. To shut down the server completely, use ~M-x
   kill-emacs~ inside the application.
   
 ** TODOs
 
-1. Use ~elpaca~ instead of ~straight.el~.
-2. Make emux verbose: explicit say which emacs socket it is using.
-3. Write why ~vterm~ is better than ~eat~ for our aim.
+1. Make emux verbose: explicit say which emacs socket it is using.
+2. Write why ~vterm~ is better than ~eat~ for our aim.

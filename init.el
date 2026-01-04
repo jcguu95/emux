@@ -2,7 +2,7 @@
 ;;; Usage: emacs --init-dir=/path/to/this/dir/
 
 ;;; 
-(require 'init-straight)                ; NOTE Emacs' Package Manager
+(require 'init-elpaca)                  ; NOTE Emacs' Package Manager
 (require 'init-benchmark)               ; NOTE 平常沒必要時，把這個刪掉以增加 booting 效率。
 
 ;;; Core Profile

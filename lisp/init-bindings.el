@@ -1,6 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
 (use-package general
+  :ensure (:wait t)
   :defer nil
   :config
   

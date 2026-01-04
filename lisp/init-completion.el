@@ -2,11 +2,13 @@
 
 ;; 簡潔的完成介面
 (use-package vertico
+  :ensure t
   :defer t
   :init (vertico-mode))
 
 ;; Orderless - 強大的模糊匹配
 (use-package orderless
+  :ensure t
   :defer t
   :init
   (setq completion-styles '(orderless basic)
@@ -17,6 +19,7 @@
 
 ;; Marginalia - 為 Vertico 候選列表添加額外資訊
 (use-package marginalia
+  :ensure t
   :defer t
   :after vertico
   :init
@@ -24,6 +27,7 @@
 
 ;; Consult - 多功能互動式命令
 (use-package consult
+  :ensure t
   :defer t
   :after (vertico orderless) ;; 確保在 vertico 和 orderless 之後加載
   :config

@@ -9,6 +9,7 @@
   (which-key-mode))
 
 (use-package gruvbox-theme
+  :ensure t
   :defer nil
   :config
   (load-theme 'gruvbox-dark-hard t)) ; Or 'gruvbox-dark-medium', 'gruvbox-light-hard', etc.
