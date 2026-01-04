@@ -50,4 +50,5 @@ This will create a symbolic link named ~emux~ inside your ~$HOME/.scripts~ direc
   
 ** TODOs
 
-1. Use =elpaca= instead of =straight.el=.
+1. Use ~elpaca~ instead of ~straight.el~.
+2. Write why ~vterm~ is better than ~eat~ for our aim.
