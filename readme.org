@@ -38,6 +38,41 @@ This will create a symbolic link named ~emux~ inside your ~$HOME/.local/bin~ dir
   - =SPC t t= :: Opens a new ~vterm~ buffer. The script will prompt you to give it a name.
   - =M-x rename-buffer= :: Highly recommended for keeping your various terminal
     sessions organized—much more flexible than tmux window names.
+- *Automatic Scripts at Startup*: ~custom.el~ for running automatic scripts.
+  #+begin_src elisp
+  ;; custom.el
+  (progn
+    (run-in-vterm :buffer-name "vterm: jupyter server"
+                  :command "jupyter lab"
+                  :double-check t
+                  :cancel-if-buffer-exists t)
+    (run-in-vterm :buffer-name "vterm: yabai server"
+                  :command "yabai"        ; this prompts user for password
+                  :double-check t
+                  :cancel-if-buffer-exists t)
+    (run-in-vterm :buffer-name "vterm: skhd server"
+                  :command "skhd"
+                  :double-check t
+                  :cancel-if-buffer-exists t)
+    (run-in-vterm :buffer-name "vterm: emacs server"
+                  :command "emacs --fg-daemon"
+                  :double-check t
+                  :cancel-if-buffer-exists t)
+    (run-in-vterm :buffer-name "vterm: syncthing server"
+                  :command "/opt/homebrew/Cellar/syncthing@2.0.11/2.0.11/bin/syncthing"
+                  :double-check t
+                  :cancel-if-buffer-exists t)
+    (run-in-vterm :buffer-name "vterm: backup loop"
+                  :command "
+  while true; do
+    cl backup;
+    echo \"Done! Sleep for 60 minutes..\";
+    sleep 3600;
+  done
+  "
+                  :double-check t
+                  :cancel-if-buffer-exists t))
+  #+end_src
 
 ** Notes
 

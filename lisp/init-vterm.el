@@ -25,12 +25,85 @@ If NAME is taken, append a suffix to ensure uniqueness."
         (unless (derived-mode-p 'vterm-mode)
           (vterm-mode)))
       (switch-to-buffer vterm-buffer)))
-  
+
+
+;;; Config
   :config
+
+;;; RUN-IN-VTERM
+  (cl-defun run-in-vterm (&key
+                          buffer-name
+                          (command "")
+                          cancel-if-buffer-exists
+                          double-check)
+    "Execute COMMAND in a vterm buffer named BUFFER-NAME.
+
+If BUFFER-NAME is nil or an empty string, the user is prompted for a
+name via the minibuffer.
+
+If a buffer with the provided name already exists and is in `vterm-mode`,
+the function switches to that buffer and executes the command there.
+Otherwise, it creates a new vterm session with that name.
+
+COMMAND is sent to the terminal followed by a return key sequence to 
+trigger execution.
+
+If CANCEL-IF-BUFFER-EXISTS is non-nil and a buffer with BUFFER-NAME
+already exists, the function will message the user and exit without
+running COMMAND.
+
+If DOUBLE-CHECK is non-nil, prompt the user for confirmation before
+executing the command.
+"
+    ;; For example, try
+    ;; (progn
+    ;;   (run-in-vterm :buffer-name "vterm: test"
+    ;;                 :command "echo 1 2 3 4; sleep 1")
+    ;;   (run-in-vterm :buffer-name "vterm: test"
+    ;;                 :command "echo 1 2 3  ; sleep 1")
+    ;;   (run-in-vterm :buffer-name "vterm: test"
+    ;;                 :command "echo 1 2    ; sleep 1"
+    ;;                 :double-check t)
+    ;;   (run-in-vterm :buffer-name "vterm: test"
+    ;;                 :command "echo 1      ;"
+    ;;                 :cancel-if-buffer-exists t))
+    (interactive
+     (list (read-string "Command: ")
+           :buffer-name (read-string "Vterm buffer name: ")
+           :cancel-if-buffer-exists nil
+           :double-check nil))
+    (let* ((name (if (or (null buffer-name) (string-empty-p buffer-name))
+                     (read-string "Enter vterm buffer name: ")
+                   buffer-name))
+           (buf (get-buffer name)))
+      (cond
+       ;; Case 1: Buffer exists and we are told to cancel
+       ((and buf cancel-if-buffer-exists)
+        (message "Action cancelled: vterm buffer '%s' already exists.\nCommand: %s\n" name command))
+       
+       ;; Case 2: Double-check is requested and user says no
+       ((and double-check 
+             (not (y-or-n-p (format "Are you sure you want to run '%s'? " command))))
+        (message "Command aborted."))
+
+       ;; Case 3: Run the command
+       (t
+        ;; If buffer doesn't exist or isn't a vterm buffer, create it silently
+        (unless (and buf (with-current-buffer buf (derived-mode-p 'vterm-mode)))
+          (setq buf (generate-new-buffer name))
+          (with-current-buffer buf
+            (vterm-mode)))
+        ;; Send command to the buffer in the background
+        (message "running command in buffer %s" (buffer-name buf))
+        (with-current-buffer buf
+          (vterm-send-string command)
+          (vterm-send-return))
+        ;; Return the buffer object
+        buf)
+       )))
   
 ;;; Vterm with Command Edition (edit-indirect like)
 ;;; TODO We may rewrite this with edit-indirect.el.
-
   (defvar-local my/vterm-target-buffer nil)
 
   (defun my/vterm-edit-command ()
@@ -86,9 +159,9 @@ If NAME is taken, append a suffix to ensure uniqueness."
             (delete-window))
         (error "Target vterm buffer is gone!"))))
 
-  (progn
-    (require 'init-bindings)
+  (with-eval-after-load 'init-bindings
     (my-local-leader
-     "e" '(my/vterm-edit-command :which-key "vterm edit"))))
+     "e" '(my/vterm-edit-command :which-key "vterm edit")))
+     )
 
 (provide 'init-vterm)

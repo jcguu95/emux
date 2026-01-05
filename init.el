@@ -19,6 +19,9 @@
 ;; 
 ;; (require 'init-extended-profile)
 
+;;; Load Customized Config
+(load (expand-file-name "custom.el" user-emacs-directory) 'noerror)
+
 ;;; 
 (add-hook 'emacs-startup-hook
           (lambda () (setq gc-cons-threshold (* 2 1024 1024))))
