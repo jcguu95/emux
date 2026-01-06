@@ -31,7 +31,7 @@ This will create a symbolic link named ~emux~ inside your ~$HOME/.local/bin~ dir
 
 - *Launch/Attach*:
   #+begin_src bash
-  PATH="$HOME"/.local/bin:"$PATH" emux
+  ~/.local/bin/emux
   #+end_src
 - *Vterm*: By default, it is configured to use ~vterm~ (though you can use ~eat~ if you prefer).
 - *Workflow*:
@@ -47,7 +47,7 @@ This will create a symbolic link named ~emux~ inside your ~$HOME/.local/bin~ dir
                   :double-check t
                   :cancel-if-buffer-exists t)
     (run-in-vterm :buffer-name "vterm: yabai server"
-                  :command "yabai"        ; this prompts user for password
+                  :command "yabai"        
                   :double-check t
                   :cancel-if-buffer-exists t)
     (run-in-vterm :buffer-name "vterm: skhd server"
@@ -93,3 +93,6 @@ This will create a symbolic link named ~emux~ inside your ~$HOME/.local/bin~ dir
     long-running server sessions, ensuring your terminal buffers remain
     responsive even after weeks of uptime.
     
+** TODOs
+
+- Fix bug for clipetty on macOS.

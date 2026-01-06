@@ -2,6 +2,7 @@
 
 (use-package clipetty
   :ensure t
+  ;; FIXME This does not work properly on macOS.
   :hook (after-init . global-clipetty-mode))
 
 (unless (display-graphic-p)
@@ -10,7 +11,6 @@
                     ((executable-find "wl-paste") "wl-paste") ;; Wayland
                     ((executable-find "xclip") "xclip -o -sel clip") ;; X11
                     ((executable-find "xsel") "xsel -ob")))) ;; X11 Alt
-    
     (when paste-cmd
       ;; This function tells Emacs how to 'pull' from the system
       (setq interprogram-paste-function
