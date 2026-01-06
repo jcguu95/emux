@@ -30,10 +30,16 @@
    "w" '(:ignore t :which-key "Window")
    "wv" '(split-window-right :which-key "Vertical split")
    "ws" '(split-window-below :which-key "Horizontal split")
+   
    "wh" '(windmove-left :which-key "Focus Left")
    "wl" '(windmove-right :which-key "Focus Right")
    "wj" '(windmove-down :which-key "Focus Down")
    "wk" '(windmove-up :which-key "Focus Up")
+   "wH" '(evil-window-move-far-left :which-key "Move Left") ; TODO May want to bind this in init-evil.el?
+   "wL" '(evil-window-move-far-right :which-key "Move Right")
+   "wJ" '(evil-window-move-very-bottom :which-key "Move Down")
+   "wK" '(evil-window-move-very-top :which-key "Move Up")
+   
    "wd" '(delete-window :which-key "Delete window")
    "wu" '(winner-undo :which-key "Undo window")
    "w C-r" '(winner-redo :which-key "Redo window")
