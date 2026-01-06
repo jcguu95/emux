@@ -5,6 +5,7 @@
   :init
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil) ; 不自動綁定鍵，交由 evil-collection 和 general.el 處理
+  (setq evil-want-C-u-scroll t)
   (setq evil-undo-system 'undo-redo)    ; Emacs 28+ 內建撤銷
   :config
   (evil-mode 1)
