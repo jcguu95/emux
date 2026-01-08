@@ -6,7 +6,7 @@
   (use-package vterm :ensure t))
 
 (use-package vterm
-  :defer t
+ ;:defer t ; disabled as vterm may be called in custom.el
   :preface
   
   (with-eval-after-load 'init-bindings
